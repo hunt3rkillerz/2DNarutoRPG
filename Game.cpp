@@ -69,11 +69,12 @@ bool Game::Initialize(HWND hWnd, int w, int h)
 			{
 				case '@':
 				{
-					player = new GameplayObject((float)(x*64), (float)(y*72), (float)M_PI_4, (float) 120.0f, 120.0f);
+					player = new GameplayObject((float)(x*64), (float)(y*72), (float)M_PI_4, (float) 120.0f, 120.0f);					
 					if (!player->Initialize(gDevice->device, "Images/link.png", 64, 72, 12, 4))
 					{
 						return false;
 					}
+					player->getNinja()->setName("Alex");
 					player->setUDLR(0, 2, 3, 1);
 				}
 				break;
@@ -240,7 +241,7 @@ void Game::Menu(float gameTime)
 	gDevice->Clear(D3DCOLOR_XRGB(0, 0, 0));
 	gDevice->Begin();
 	/*
-		Menu Draw Logic:
+	Menu Draw Logic:
 	*/
 	font = nullptr;
 	HRESULT hr = D3DXCreateFont(gDevice->device, 40, 0, FW_NORMAL, 1, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, FF_DONTCARE, "Arial", &font);
@@ -248,9 +249,13 @@ void Game::Menu(float gameTime)
 	{
 		return;
 	}
-	std::string msg = "Hello world";
+	std::string msg = "Name: "+ player->getNinja()->getName() + "\n";
+	msg +="Level: " + std::to_string(player->getNinja()->getLevel()) + "\n";
+	msg += "HP: " + std::to_string(player->getNinja()->getHP()) + "\n";
+	msg += "Chakra: " + std::to_string(player->getNinja()->getChakra()) + "\n\n";
+	msg += "1. Skill Menu\n2. View Techniques\n3. Inventory";
 	RECT r;
-	SetRect(&r, 0, 0, 200, 200);
+	SetRect(&r, 150, 100, 600, 600);
 	font->DrawTextA(NULL, msg.c_str(), -1, &r, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
 	gDevice->End();
 	gDevice->Present();
@@ -265,5 +270,6 @@ void Game::Menu(float gameTime)
 		}
 	}
 }
+
 
 

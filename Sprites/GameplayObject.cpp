@@ -9,6 +9,11 @@ GameplayObject::~GameplayObject()
 		delete sprite;
 		sprite = 0;
 	}
+	if (nin)
+	{
+		delete nin;
+		nin = 0;
+	}
 }
 
 bool GameplayObject::Initialize(LPDIRECT3DDEVICE9 device, std::string fileName, int width, int height, int numFrames, int numRows)
@@ -26,11 +31,11 @@ bool GameplayObject::Initialize(LPDIRECT3DDEVICE9 device, std::string fileName, 
 	curFrame = 0;
 	dir = 0;
 	this->numFrames = numFrames;
-	boundaryBox.right = position.x;
-	boundaryBox.bottom = position.y;
+	boundaryBox.right = (long)position.x;
+	boundaryBox.bottom = (long)position.y;
 
-	boundaryBox.left = (position.x - width);
-	boundaryBox.top = (position.y - height);
+	boundaryBox.left = (long)(position.x - width);
+	boundaryBox.top = (long)(position.y - height);
 	return true;
 }
 
@@ -163,10 +168,10 @@ void GameplayObject::HandleInput()
 
 RECT GameplayObject::getBoundaryBox(float gameTime)
 {
-	boundaryBox.right = position.x+(velocity.x* gameTime);
-	boundaryBox.bottom = position.y + (velocity.y* gameTime);
-	boundaryBox.left = position.x + (velocity.x* gameTime);
-	boundaryBox.top = position.y + (velocity.y* gameTime);
+	boundaryBox.right = (long)(position.x+(velocity.x* gameTime));
+	boundaryBox.bottom = (long)(position.y + (velocity.y* gameTime));
+	boundaryBox.left = (long)(position.x + (velocity.x* gameTime));
+	boundaryBox.top = (long)(position.y + (velocity.y* gameTime));
 	return boundaryBox;
 }
 
@@ -175,14 +180,19 @@ ObjectStatus GameplayObject::getStatus() const
 	return status;
 }
 
+Ninja * GameplayObject::getNinja() const
+{
+	return nin;
+}
+
 int GameplayObject::getPosX() const
 {
-	return position.x;
+	return (int)position.x;
 }
 
 int GameplayObject::getPosY() const
 {
-	return position.y;
+	return (int)position.y;
 }
 
 void GameplayObject::setSpeed(float speed)
@@ -235,5 +245,11 @@ GameplayObject::GameplayObject(float x, float y, float rotation, float speed, fl
 	down = 3;
 
 	this->maxSpeed = maxSpeed;
+
+	nin = new Ninja();
+	if (!nin)
+	{
+		MessageBox(NULL, "ERROR CREATING NINJA", NULL, NULL);
+	}
 }
 
