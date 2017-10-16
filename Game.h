@@ -1,9 +1,9 @@
 #pragma once
-#include "GraphicsDevice.h"
-#include "GameplayObject.h"
-#include "BackgroundObject.h"
-#include "GameTime.h"
-#include "Camera.h"
+#include "DrawEngine/GraphicsDevice.h"
+#include "Sprites/GameplayObject.h"
+#include "Sprites/BackgroundObject.h"
+#include "GameBackend/GameTime.h"
+#include "Sprites/Camera.h"
 #include <vector>
 class Game
 {
