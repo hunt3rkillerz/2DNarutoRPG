@@ -70,7 +70,7 @@ void GameChar::techniqueList()
 	//Taijutsu
 	std::cout << std::endl;
 	std::cout << "Taijutsu List:" << std::endl;
-	for (int i = 0; i < t.size(); i++)
+	for (int i = 0; i < (int)t.size(); i++)
 	{
 		std::cout << "Name: " << t[i].getName()  << ", Base Damage: " << t[i].getBaseDmg()
 			<< ", Chakra Cost: " << t[i].getChakraCost()	<< ", Health Cost: " << t[i].getHealthCost()  << std::endl;
@@ -78,7 +78,7 @@ void GameChar::techniqueList()
 	//Ninjutsu
 	std::cout << std::endl;
 	std::cout << "Genjutsu List:" << std::endl;
-	for (int i = 0; i < n.size(); i++)
+	for (int i = 0; i < (int)n.size(); i++)
 	{
 		std::cout << "Name: " << n[i].getName() << ", Base Damage: " << n[i].getBaseDmg()
 			<< ", Chakra Cost: " << n[i].getChakraCost() << ", Health Cost: " << n[i].getHealthCost() << std::endl;
@@ -86,7 +86,7 @@ void GameChar::techniqueList()
 	//Genjutsu
 	std::cout << std::endl;
 	std::cout << "Genjutsu List:" << std::endl;
-	for (int i = 0; i < g.size(); i++)
+	for (int i = 0; i < (int)g.size(); i++)
 	{
 		std::cout << "Name: " << g[i].getName() << ", Base Damage: " << g[i].getBaseDmg()
 			<< ", Chakra Cost: " << g[i].getChakraCost() << ", Health Cost: " << g[i].getHealthCost() << std::endl;

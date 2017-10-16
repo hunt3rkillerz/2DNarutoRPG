@@ -4,6 +4,7 @@
 #include <cmath>
 
 #include "GameSprite.h"
+#include "../GameBackend/Ninja.h"
 #include <string>
 
 enum class ObjectStatus {Active, Dying, Dead};
@@ -20,6 +21,7 @@ class GameplayObject
 		virtual void HandleInput();
 		RECT getBoundaryBox(float gameTime);
 		ObjectStatus getStatus() const;
+		Ninja* getNinja() const;
 		int getPosX() const;
 		int getPosY() const;
 		void setSpeed(float speed);
@@ -32,6 +34,7 @@ class GameplayObject
 		D3DXVECTOR3 position, velocity;
 		float rotation, speed;
 	private:
+		Ninja *nin;
 		ObjectStatus status;
 		GameSprite *sprite;
 		RECT boundaryBox;

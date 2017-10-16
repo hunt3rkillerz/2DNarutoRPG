@@ -1,6 +1,8 @@
-//VIEW - PROPERTY MANAGER
-//Debug | Win32 --> Microsoft.Cpp.Win32.user
-//Linker Input - Make sure d3d9.lib and d3dx9.lib are there
+/*
+	Credit to Nathan Biefeld's C++ DirectX Tutorial for the startup code
+	The tutorial's can be found on his youtube channel (link below)
+	https://www.youtube.com/user/Whiplashx86
+*/
 #define WKEY 87
 #define SKey 83
 #define DKey 68
@@ -23,18 +25,6 @@
 #pragma comment (lib, "d3dx9.lib")
 #include "Game.h"
 
-char map[10][20] = {
-	"###################",
-	"#                 #",
-	"#                 #",
-	"#                 #",
-	"#                 #",
-	"#                 #",
-	"#                 #",
-	"#        @        #",
-	"#                 #",
-	"###################"
-};
 //Prototypes for the GenerateWindow function, otherwise WinMain cannot call GenerateWindow
 bool GenerateWindow(HINSTANCE hInstance, int nCmdShow, LPCSTR className, LPCSTR windowTitle, int width, int height, HWND& hWnd);
 bool GenerateWindow(HINSTANCE hInstance, int nCmdShow, LPCSTR className, LPCSTR windowTitle, int x, int y, int width, int height, HWND& hWnd);
