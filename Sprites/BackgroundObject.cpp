@@ -23,11 +23,11 @@ bool BackgroundObject::Initialize(LPDIRECT3DDEVICE9 device, std::string fileName
 		{
 			return false;
 		}
-		boundaryBox.right = position.x +(width/ 1.8);
-		boundaryBox.bottom = position.y + (height/ 1.8);
+		boundaryBox.right = position.x;
+		boundaryBox.bottom = position.y + (height / 5);
 
-		boundaryBox.left = (position.x - (width / 1.2));
-		boundaryBox.top = (position.y - (height/ 1.2));
+		boundaryBox.left = (position.x - (width / 2));
+		boundaryBox.top = (position.y - (height/ 2));
 	}
 	return true;
 }

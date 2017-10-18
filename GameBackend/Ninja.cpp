@@ -1,6 +1,6 @@
 #include "Ninja.h"
 
-Ninja::Ninja(std::string n, int hp, int ps, int l, int ms) : mentalStrength(ms)
+Ninja::Ninja(std::string n, int hp, int ps, int l, int ms) : Person(n, hp, ps, l),mentalStrength(ms)
 {
 	/*std::cout << "hp: " << hitPoints << std::endl;
 	std::cout << "ps: " << physicalStrength << std::endl;
@@ -64,6 +64,16 @@ int Ninja::getLevel()
 int Ninja::getSkillPoints()
 {
 	return skillPoints;
+}
+
+int Ninja::getCurHP() const
+{
+	return curHP;
+}
+
+void Ninja::takeDamage(int dmg)
+{
+	curHP -= dmg;
 }
 
 std::vector<Ninjutsu> Ninja::getNinjutsu()

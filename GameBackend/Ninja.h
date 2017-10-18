@@ -41,6 +41,8 @@ class Ninja : public Person
 		int getPS();
 		int getLevel();
 		int getSkillPoints();
+		int getCurHP() const;
+		void takeDamage(int dmg);
 		std::vector<Ninjutsu> getNinjutsu();
 		std::vector<Genjutsu> getGenjutsu();
 		std::vector<Taijutsu> getTaijutsu();

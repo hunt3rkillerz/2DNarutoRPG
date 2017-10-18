@@ -40,6 +40,14 @@ Game::~Game()
 			tree[i] = 0;
 		}
 	}
+	for (int i = 0; i < (int)enemies.size(); i++)
+	{
+		if (enemies[i])
+		{
+			delete enemies[i];
+			enemies[i] = 0;
+		}
+	}
 	if (font)
 	{
 		font->Release();
@@ -90,12 +98,12 @@ bool Game::Initialize(HWND hWnd, int w, int h)
 				break;
 				case '1':
 				{
-					BackgroundObject *t = new BackgroundObject((float)(x * 64), (float)(y * 72));
-					if (!t->Initialize(gDevice->device, "images/person.png", 64, 72))
+					EnemyObject *t = new EnemyObject((float)(x * 64), (float)(y * 72), (float)M_PI_4, (float) 120.0f, 120.0f);
+					if (!t->Initialize(gDevice->device, "images/player.png", 64, 72, 4, 4))
 					{
 						return false;
 					}
-					tree.push_back(t);
+					enemies.push_back(t);
 				}
 				break;
 				case ' ':
@@ -105,7 +113,7 @@ bool Game::Initialize(HWND hWnd, int w, int h)
 				break;
 			}
 			BackgroundObject *grass = new BackgroundObject((float)(x * 64), (float)(y * 72));
-			if (!grass->Initialize(gDevice->device, "images/PokemonGrass.png", 64, 72))
+			if (!grass->Initialize(gDevice->device, "images/grass.jpg", 64, 72))
 			{
 				return false;
 			}
@@ -143,31 +151,20 @@ void Game::Update(float gameTime)
 	
 	if (camera)
 	{
-		/*
-		if (GetAsyncKeyState('F') & 0x8000) //70 is the vKey value for F
-		{
-			if (!camera->IsFollowing())
-			{
-				camera->Follow(player);
-			}
-		}
-
-		if (GetAsyncKeyState('U') & 0x8000) //85 is the vKey value for U
-		{
-			if (camera->IsFollowing())
-			{
-				camera->Unfollow();
-			}
-		}*/
 		if (!camera->IsFollowing())
 		{
 			camera->Follow(player);
 		}
 		camera->Update(gameTime);
 	}
+	for (int i = 0; i < (int)enemies.size(); i++)
+	{
+		enemies[i]->Update(gameTime);
+	}
 	if (player)
 	{
 		bool doesNotCollide = true;
+		bool startBattle = false;
 		player->HandleInput();
 		for (int i = 0; i < (int)tree.size(); i++)
 		{		
@@ -177,6 +174,20 @@ void Game::Update(float gameTime)
 				doesNotCollide = false;
 				break;
 			}
+		}
+		for (int i = 0; i < (int)enemies.size(); i++)
+		{
+			//TODO FIX COLLISION DETECTION
+			if (doesCollide(player->getBoundaryBox(gameTime), enemies[i]->getBoundaryBox(gameTime)))
+			{
+				startBattle = true;
+				doesNotCollide = false;
+				break;
+			}
+		}
+		if (startBattle)
+		{
+			battleScreen(gameTime);
 		}
 		if (doesNotCollide)
 		{
@@ -211,6 +222,10 @@ void Game::Draw(float gameTime)
 			background[i]->Draw(gameTime);
 		}
 	}
+	if (player)
+	{
+		player->Draw(gameTime);
+	}
 	for (int i = 0; i < (int)tree.size(); i++)
 	{
 		if (tree[i])
@@ -218,9 +233,12 @@ void Game::Draw(float gameTime)
 			tree[i]->Draw(gameTime);
 		}
 	}
-	if (player)
+	for (int i = 0; i < (int)enemies.size(); i++)
 	{
-		player->Draw(gameTime);
+		if (enemies[i])
+		{
+			enemies[i]->Draw(gameTime);
+		}
 	}
 	gDevice->End();
 	gDevice->Present();
@@ -269,6 +287,30 @@ void Game::Menu(float gameTime)
 			return;
 		}
 	}
+}
+
+void Game::battleScreen(float gameTime)
+{
+	Ninja * temp;
+	temp = new Ninja("Test");
+	gDevice->Clear(D3DCOLOR_XRGB(0, 0, 0));
+	gDevice->Begin();
+	BattleScreen b(player->getNinja(), temp);
+	b.draw(gDevice);
+	gDevice->End();
+	gDevice->Present();
+	while ((true))
+	{
+
+	}
+	//battle loop
+	while (temp->getCurHP() > 0 && player->getNinja()->getCurHP() > 0)
+	{
+
+	}
+	delete temp;
+	
+
 }
 
 

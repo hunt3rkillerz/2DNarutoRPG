@@ -10,6 +10,7 @@ class Person
 		virtual ~Person();
 	protected:
 		int hitPoints;
+		int curHP;
 		int physicalStrength;
 		int level;
 		std::string name;

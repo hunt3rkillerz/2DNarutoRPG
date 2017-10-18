@@ -2,7 +2,7 @@
 
 
 
-Person::Person(std::string n, int hp, int ps, int l) : name(n), hitPoints(hp), physicalStrength(ps), level(l)
+Person::Person(std::string n, int hp, int ps, int l) : name(n), hitPoints(hp), physicalStrength(ps), level(l), curHP(hp)
 {
 }
 
